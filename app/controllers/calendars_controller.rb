@@ -1,12 +1,18 @@
 class CalendarsController < ApplicationController
   def index
     @week_days = getWeek # getWeekメソッドから曜日の配列を取得
+    get_week
     @plan = Plan.new
   end
   
   private
   
-  def getWeek
+  def plan_params
+    params.require(:calendars).permit(:date, :plan)
+  end
+
+
+  def get_week
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
   
     @todays_date = Date.today
